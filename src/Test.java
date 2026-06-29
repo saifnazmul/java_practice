@@ -37,7 +37,7 @@ public class Test {
         };
 
         RequestPerser.perser(state);
-        System.out.println(state.version);
+
 
 
 

@@ -5,6 +5,12 @@ import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+enum HttpFields{
+    METHOD,
+    PATH,
+    VERSION,
+    BODY,
+};
 
 public class RequestPerser{
 
@@ -15,25 +21,50 @@ public class RequestPerser{
     }
 
 
-     private static void perserRequesLine(ClinetState state){
-        ByteBuffer bb = state.buffer;
-        bb.flip();
+     private static void perserRequesLine(ClinetState state) {
+         int position = 0;
+         HttpFields fields = HttpFields.METHOD;
 
-        while (state.buffer.hasRemaining()){
+         ByteBuffer bb = state.buffer;
+         bb.flip();
 
-            char bbRead = (char) bb.get();
-            if(bbRead == '\n'){
-                break;
-            }
-            state.requestLine.append(bbRead);
+         while (state.buffer.hasRemaining()) {
+             byte bbRead = bb.get();
+             if (bbRead == '\n') {
+                 System.out.println("breck");
+                 break;
+             }
 
-        }
+             switch (fields) {
+                 case METHOD:
+                     if (bbRead == ' ') {
+                         position = 0;
+                         fields = HttpFields.PATH;
+                         continue;
+                     }
+                     state.method[position++] = bbRead;
+                     break;
+                 case PATH:
+                     if (bbRead == ' ') {
+                         position = 0;
+                         fields = HttpFields.VERSION;
+                         continue;
+                     }
+                     state.path[position++] = bbRead;
+                     break;
+                 case VERSION:
+                     state.version[position++] = bbRead;
+                     break;
+                 default:
+                     System.out.println("Not exist filed");
+             };
 
-        String[] line = state.requestLine.toString().split(" ");
-        state.method = line[0];
-        state.path = line[1];
-        state.version = line[2];
+         }
 
-    };
+         System.out.println(Arrays.toString(state.method));
+         System.out.println(Arrays.toString(state.path));
+         System.out.println(Arrays.toString(state.version));
 
-}
+
+     };
+};

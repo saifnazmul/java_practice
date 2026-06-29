@@ -6,9 +6,9 @@ public class ClinetState {
        public ByteBuffer buffer = ByteBuffer.allocate(1024);
 
        public StringBuilder requestLine = new StringBuilder();
-       public String method;
-       public String path;
-       public String version;
+       public byte[] method = new byte[8];
+       public byte[] path = new byte[5];
+       public byte[] version = new byte[16];
 
 //        private void check (String value,String field){
 //            if(value == null || value.isBlank()) {
@@ -17,3 +17,4 @@ public class ClinetState {
 //        }
 
 }
+

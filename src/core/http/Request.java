@@ -11,11 +11,8 @@ public class Request {
     }
 
     public void getMethod(){
-        System.out.println(sate.method);
-    };
 
-    public String getPath(){
-         return this.sate.path;
-    }
+    };
+    public void getPath(){};
 
 }
