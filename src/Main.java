@@ -25,7 +25,7 @@ public class Main {
      ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
 
      serverSocketChannel.configureBlocking(false);
-     serverSocketChannel.bind(new InetSocketAddress(5008));
+     serverSocketChannel.bind(new InetSocketAddress(6007));
      serverSocketChannel.register(selector,SelectionKey.OP_ACCEPT);
 
         System.out.println("server is ready: http://localhost:5008");
@@ -65,7 +65,7 @@ public class Main {
                   continue;
               }
 
-              RequestPerser.perser(clinetState);~
+              RequestPerser.perser(clinetState);
 
           };
 
