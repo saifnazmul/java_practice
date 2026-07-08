@@ -13,7 +13,6 @@ class Counter{
    static synchronized void increment(){
         count = count + 1;
     }
-
 }
 
 public class Synchronization {
